@@ -1,0 +1,32 @@
+.heading-tag{
+    background-color: #ff9999;
+    padding: 8px;
+    text-align: center;
+    font-size: 1rem;
+    display: block;
+}
+
+.upcoming-imagelist{
+    display: flex;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+}
+
+.flex-container {
+    display: flex;
+}
+.flex-imagelist{
+    line-height: 350;
+}
+
+.left {
+    max-width: 76%;
+    margin: 16px;
+}
+.right {
+    max-width: 24%;
+    margin: 16px;
+} 
+.flex-image{
+    cursor: pointer;
+}
