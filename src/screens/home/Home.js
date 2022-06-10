@@ -1,5 +1,8 @@
 import React from "react";
+
+import ReactDOM from 'react-dom';
 import Header from "../../common/header/Header.js";
+import Details from "../details/Details"
 import "./Home.css";
 import { withStyles } from '@material-ui/core/styles';
 import GridList from "@material-ui/core/GridList";
@@ -20,18 +23,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import artists from "../../common/artists";
 import genres from '../../common/genre';
-
-
 const styles = theme => ({
   root: {
       flexGrow: 1,
       backgroundColor: theme.palette.background.paper
-  },
-  upcomingMoviesHeading: {
-      textAlign: 'center',
-      background: '#ff9999',
-      padding: '8px',
-      fontSize: '1rem'
   },
   gridListUpcomingMovies: {
       flexWrap: 'nowrap',
@@ -42,7 +37,7 @@ const styles = theme => ({
       transform: 'translateZ(0)',
       cursor: 'pointer',
       margin:'0%'
-
+      
   },
   formControl: {
     margin: theme.spacing.unit,
@@ -91,25 +86,24 @@ releaseDateEndHandler = event => {
 }
 
 movieClickHandler = (movieId) => {
-  this.props.history.push('/movie/' + movieId);
+  ReactDOM.render(<Details movieId={movieId} />, document.getElementById('root'));
 }
 
 
   render() {
     const { classes } = this.props;
-    console.log("Ayush" + this.state.movieName);
     var filterMovie=moviesData.filter((movie)=>{
     return(movie.title=== this.state.movieName ||this.state.artists.includes( (movie.artists[0].first_name+" "+movie.artists[0].last_name)))
   })
-    if(this.state.movieName.length ==0  && this.state.artists.length == 0){
+    if(this.state.movieName.length ===0  && this.state.artists.length === 0){
       filterMovie=moviesData;
     }
-
+    
 
     return (
       <div>
         <Header baseUrl={this.props.baseU} />
-        <div id="upcomeing">
+        <div className="heading-tag">
           <span>Upcoming Movies</span>
         </div>
         <div>
@@ -130,7 +124,7 @@ movieClickHandler = (movieId) => {
             <div className="left">
             <GridList cellHeight={350} cols={4} className={classes.gridListMain}>
               {filterMovie.map((movie) => (
-                <GridListTile className="released-movie-grid-item"
+                <GridListTile  onClick={() => this.movieClickHandler(movie.id)} className="released-movie-grid-item"
                   key={"grid" + movie.id}
                 >
                   <img
@@ -210,7 +204,7 @@ movieClickHandler = (movieId) => {
                                         type="date"
                                         defaultValue=""
                                         InputLabelProps={{ shrink: true }}
-
+                                       
                                     />
                                 </FormControl>
 
@@ -221,13 +215,13 @@ movieClickHandler = (movieId) => {
                                         type="date"
                                         defaultValue=""
                                         InputLabelProps={{ shrink: true }}
-
+                                        
                                     />
                                 </FormControl>
                                 <br /><br />
                                 <FormControl className={classes.formControl}>
                                     <Button  variant="contained" color="primary">
-
+                                      
                                         APPLY
                                     </Button>
                                 </FormControl>
